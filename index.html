@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saffron &amp; Hearth — Modern Kitchen</title>
+  <style>
+    :root {
+      --bg: #faf7f2;
+      --surface: #ffffff;
+      --surface-warm: #f3ece1;
+      --text: #1f1b18;
+      --muted: #5e554c;
+      --accent: #b84a27;
+      --accent-dark: #94381b;
+      --gold: #d49b35;
+      --border: #e6ddd0;
+      --radius: 12px;
+      --shadow: 0 8px 24px rgba(31, 27, 24, 0.06);
+      --max-w: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    /* Navigation */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250, 247, 242, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 68px;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--accent);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    nav a:hover,
+    nav a:focus-visible {
+      color: var(--accent);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.7rem 1.35rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      background-color: var(--accent);
+      color: #ffffff;
+      border: 2px solid var(--accent);
+      transition: background-color 0.2s ease, transform 0.15s ease;
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      background-color: var(--accent-dark);
+      border-color: var(--accent-dark);
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.85);
+    }
+
+    .btn-outline:hover,
+    .btn-outline:focus-visible {
+      background-color: rgba(255, 255, 255, 0.14);
+      border-color: #ffffff;
+    }
+
+    /* Hero Section */
+    .hero {
+      background:
+        linear-gradient(135deg, rgba(28, 21, 16, 0.84), rgba(66, 29, 17, 0.78)),
+        radial-gradient(circle at top right, rgba(212, 155, 53, 0.28), transparent 55%);
+      color: #ffffff;
+      padding: 5.5rem 0;
+    }
+
+    .hero-content {
+      max-width: 660px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #f6c96b;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.1rem, 4.5vw, 3.25rem);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.08rem;
+      color: #f3ece1;
+      margin-bottom: 1.75rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+    }
+
+    /* Sections */
+    section {
+      padding: 4.25rem 0;
+    }
+
+    .section-alt {
+      background-color: var(--surface-warm);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 2.75rem;
+    }
+
+    .section-header h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.65rem, 3vw, 2.25rem);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-header p {
+      color: var(--muted);
+    }
+
+    /* Menu */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.75rem;
+    }
+
+    .menu-category {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .menu-category h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.3rem;
+      color: var(--accent);
+      padding-bottom: 0.65rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .menu-item {
+      padding: 0.75rem 0;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .menu-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .item-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.75rem;
+      font-weight: 600;
+    }
+
+    .price {
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .item-desc {
+      font-size: 0.92rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    /* Special Offers */
+    .offers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .offer-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-top: 4px solid var(--gold);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .tag {
+      display: inline-block;
+      align-self: flex-start;
+      background: #fdf2dc;
+      color: #8a5a00;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      margin-bottom: 0.5rem;
+    }
+
+    .offer-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .offer-card p {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .offer-meta {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    /* Reviews */
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .review-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .stars {
+      color: var(--gold);
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.65rem;
+    }
+
+    .review-card blockquote {
+      font-style: italic;
+      color: var(--text);
+      margin-bottom: 0.9rem;
+    }
+
+    .reviewer {
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    /* Contact & Location */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.75rem;
+    }
+
+    .info-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .info-card h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.2rem;
+      margin-bottom: 0.85rem;
+      color: var(--accent);
+    }
+
+    .info-list {
+      list-style: none;
+      display: grid;
+      gap: 0.55rem;
+      font-size: 0.95rem;
+    }
+
+    .info-list strong {
+      color: var(--text);
+    }
+
+    .map-box {
+      background: linear-gradient(145deg, #e9dfd1, #d8cbb8);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 230px;
+    }
+
+    .map-box h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .map-box p {
+      color: var(--muted);
+      font-size: 0.94rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Footer */
+    footer {
+      background: #1f1b18;
+      color: #dfd6c9;
+      text-align: center;
+      padding: 1.75rem 1rem;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav-inner">
+      <a href="#top" class="brand">Saffron &amp; Hearth</a>
+      <nav aria-label="Primary Navigation">
+        <ul>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#offers">Special Offers</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <a href="#contact" class="btn">Reserve a Table</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container hero-content">
+        <span class="eyebrow">Fresh Ingredients &bull; Wood-Fired Flavor</span>
+        <h1>Warm Hospitality and Bold Flavors Every Day</h1>
+        <p>
+          Welcome to Saffron &amp; Hearth, where seasonal produce, aromatic spices, and
+          open-flame cooking come together for relaxed lunches and memorable dinners.
+        </p>
+        <div class="hero-actions">
+          <a href="#menu" class="btn">Explore Menu</a>
+          <a href="#offers" class="btn btn-outline">Today&rsquo;s Offers</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Food Menu Section -->
+    <section id="menu">
+      <div class="container">
+        <div class="section-header">
+          <h2>Food Menu</h2>
+          <p>Prepared fresh to order using local produce and house-made sauces.</p>
+        </div>
+
+        <div class="menu-grid">
+          <div class="menu-category">
+            <h3>Starters</h3>
+            <div class="menu-item">
+              <div class="item-top">
+                <span>Charred Garlic Flatbread</span>
+                <span class="price">$8.50</span>
+              </div>
+              <p class="item-desc">Blistered dough brushed with herb oil, roasted garlic, and sea salt.</p>
+            </div>
+            <div class="menu-item">
+              <div class="item-top">
+                <span>Crispy Spiced Cauliflower</span>
+                <span class="price">$10.00</span>
+              </div>
+              <p class="item-desc">Tossed in smoky paprika glaze with cooling yogurt-mint dip.</p>
+            </div>
+            <div class="menu-item">
+              <div class="item-top">
+                <span>Tomato Basil Bisque</span>
+                <span class="price">$7.50</span>
+              </div>
+              <p class="item-desc">Velvety roasted vine tomatoes finished with sweet basil and cream.</p>
+            </div>
+          </div>
+
+          <div class="menu-category">
+            <h3>Mains</h3>
+            <div class="menu-item">
+              <div class="item-top">
+                <span>Hearth-Roasted Herb Chicken</span>
+                <span class="price">$19.50</span>
+              </div>
+              <p class="item-desc">Lemon-thyme half chicken with baby potatoes and charred greens.</p>
+            </div>
+            <div class="menu-item">
+              <div class="item-top">
+                <span>Saffron Vegetable Pilaf Bowl</span>
+                <span class="price">$16.50</span>
+              </div>
+              <p class="item-desc">Fragrant basmati rice, roasted squash, chickpeas, and toasted almonds.</p>
+            </div>
+            <div class="menu-item">
+              <div class="item-top">
+                <span>Pan-Seared Pepper Steak</span>
+                <span class="price">$24.00</span>
+              </div>
+              <p class="item-desc">Cracked black pepper crust, garlic butter jus, and grilled asparagus.</p>
+            </div>
+          </div>
+
+          <div class="menu-category">
+            <h3>Desserts &amp; Drinks</h3>
+            <div class="menu-item">
+              <div class="item-top">
+                <span>Warm Cardamom Skillet Cake</span>
+                <span class="price">$8.00</span>
+              </div>
+              <p class="item-desc">Served warm with vanilla bean ice cream and honey drizzle.</p>
+            </div>
+            <div class="menu-item">
+              <div class="item-top">
+                <span>Citrus Mint Cooler</span>
+                <span class="price">$5.50</span>
+              </div>
+              <p class="item-desc">Fresh lime, orange zest, crushed mint, and sparkling water.</p>
+            </div>
+            <div class="menu-item">
+              <div class="item-top">
+                <span>Spiced Masala Chai</span>
+                <span class="price">$4.50</span>
+              </div>
+              <p class="item-desc">Simmered tea leaves with cinnamon, ginger, cardamom, and milk.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Special Offers Section -->
+    <section id="offers" class="section-alt">
+      <div class="container">
+        <div class="section-header">
+          <h2>Special Offers</h2>
+          <p>Seasonal deals designed for weekday lunches, date nights, and group tables.</p>
+        </div>
+
+        <div class="offers-grid">
+          <article class="offer-card">
+            <div>
+              <span class="tag">Weekday Lunch</span>
+              <h3>Express Lunch Combo</h3>
+              <p>Any starter or bowl paired with a drink for a quick, filling midday break.</p>
+            </div>
+            <div class="offer-meta">$14.99 &bull; Mon&ndash;Fri, 11:30 AM &ndash; 2:30 PM</div>
+          </article>
+
+          <article class="offer-card">
+            <div>
+              <span class="tag">Evening Special</span>
+              <h3>Dinner for Two</h3>
+              <p>One shared starter, two signature mains, and one dessert to split.</p>
+            </div>
+            <div class="offer-meta">$46.00 &bull; Daily after 5:00 PM</div>
+          </article>
+
+          <article class="offer-card">
+            <div>
+              <span class="tag">Family Bundle</span>
+              <h3>Weekend Feast Box</h3>
+              <p>Two mains, two sides, flatbread, and four drinks—great for hosting at home.</p>
+            </div>
+            <div class="offer-meta">$58.00 &bull; Sat&ndash;Sun Dine-In or Takeout</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Customer Reviews Section -->
+    <section id="reviews">
+      <div class="container">
+        <div class="section-header">
+          <h2>Customer Reviews</h2>
+          <p>What regular guests say about our food, service, and atmosphere.</p>
+        </div>
+
+        <div class="reviews-grid">
+          <article class="review-card">
+            <div class="stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <blockquote>
+              &ldquo;The herb chicken was juicy and full of flavor, and the service felt welcoming without ever rushing us.&rdquo;
+            </blockquote>
+            <div class="reviewer">&mdash; Ananya Rao</div>
+          </article>
+
+          <article class="review-card">
+            <div class="stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <blockquote>
+              &ldquo;Great vegetarian options beyond the usual salad. The saffron pilaf bowl and cardamom cake are must-orders.&rdquo;
+            </blockquote>
+            <div class="reviewer">&mdash; Daniel Brooks</div>
+          </article>
+
+          <article class="review-card">
+            <div class="stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <blockquote>
+              &ldquo;Cozy lighting, fair prices, and consistently hot food. It has quickly become our go-to Friday spot.&rdquo;
+            </blockquote>
+            <div class="reviewer">&mdash; Priya Nair</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact & Location Section -->
+    <section id="contact" class="section-alt">
+      <div class="container">
+        <div class="section-header">
+          <h2>Contact &amp; Location</h2>
+          <p>Stop by for dine-in, call ahead for takeout, or reach out for group bookings.</p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="info-card">
+            <h3>Hours &amp; Contact</h3>
+            <ul class="info-list">
+              <li><strong>Mon &ndash; Thu:</strong> 11:30 AM &ndash; 10:00 PM</li>
+              <li><strong>Fri &ndash; Sun:</strong> 11:30 AM &ndash; 11:00 PM</li>
+              <li><strong>Phone:</strong> (555) 234-8910</li>
+              <li><strong>Email:</strong> hello@saffronandhearth.example</li>
+            </ul>
+          </div>
+
+          <div class="map-box">
+            <h3>Find Us</h3>
+            <p>
+              <strong>248 Market Street, Suite 102</strong><br />
+              Downtown District &bull; Guest parking available behind the building.
+            </p>
+            <a href="https://maps.google.com/?q=248+Market+Street" target="_blank" rel="noopener noreferrer" class="btn">
+              Open in Maps
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      &copy; 2026 Saffron &amp; Hearth. All rights reserved.
+    </div>
+  </footer>
+</body>
+</html>
